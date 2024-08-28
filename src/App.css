@@ -1,0 +1,218 @@
+
+.container{
+  margin: auto;
+}
+.form-container {
+  display: flex;
+  
+  align-items: center; /* Center items horizontally */
+}
+
+button[type="submit"] {
+  margin-top: 16px; /* Optional: space above the button */
+  padding: 8px 16px; /* Adjust padding as needed */
+  background-color: #007bff; /* Button background color */
+  color: white; /* Button text color */
+  border: none;
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer;
+  font-size: 1rem; /* Adjust font size as needed */
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3; /* Darker background on hover */
+}
+/* Form heading */
+h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Form group */
+div {
+  margin-bottom: 1rem;
+}
+
+/* Form labels */
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #555;
+}
+
+/* Form inputs */
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* Textarea specific styles */
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+/* Buttons */
+button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Add another link button */
+button[type="button"] {
+  background-color: #28a745;
+}
+
+button[type="button"]:hover {
+  background-color: #218838;
+}
+
+/* Remove button */
+button[type="button"] {
+  background-color: #dc3545;
+  margin-left: 0.5rem;
+}
+
+button[type="button"]:hover {
+  background-color: #c82333;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  form {
+    padding: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+  }
+}
+.visual-link-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.visual-link-item {
+  display: flex;
+  justify-content: space-between; /* Distribute space between items */
+  align-items: center; /* Center items vertically */
+  padding: 8px;
+  border-bottom: 1px solid #ddd; /* Optional: add a border for visual separation */
+}
+
+.remove-button {
+  background-color: #f44336; /* Red background */
+  color: white; /* White text */
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.remove-button:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+
+.visual-link-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.visual-link-input input[type="text"] {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.add-button, .remove-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-button:hover {
+  background-color: #0056b3;
+}
+
+.remove-button {
+  background-color: #dc3545;
+}
+
+.remove-button:hover {
+  background-color: #c82333;
+}
+
+.add-button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+/* Tech stack and visual link list */
+.tech-stack-list, .visual-link-list {
+  list-style-type: none;
+  padding: 0;
+ 
+}
+
+.tech-stack-item, .visual-link-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.tech-stack-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tech-stack-item {
+  display: flex;
+  justify-content: space-between; /* Distribute space between items */
+  align-items: center; /* Center items vertically */
+  padding: 8px;
+  border-bottom: 1px solid #ddd; /* Optional: add a border for visual separation */
+}
+
+.remove-button {
+  background-color: #f44336; /* Red background */
+  color: white; /* White text */
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.remove-button:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
