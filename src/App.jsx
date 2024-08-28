@@ -4,28 +4,31 @@ import { db } from './firebase';
 import './App.css';
 import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; 
+import 'react-toastify/dist/ReactToastify.css';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 function App() {
-  const [projects,setProjects] = useState();
+  const [projects, setProjects] = useState();
   const [formData, setFormData] = useState({
     name: '',
     thumbnail: '',
-    liveProjectUrl : '',
+    liveProjectUrl: '',
     about: '',
     techStack: [],
     type: 'web',
-    visualLinks: []
+    visualLinks: [],
   });
 
   const [newTechStack, setNewTechStack] = useState('');
   const [newVisualLink, setNewVisualLink] = useState('');
+  const [showTechStack, setShowTechStack] = useState(true);
+  const [showVisualLinks, setShowVisualLinks] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -35,9 +38,9 @@ function App() {
 
   const handleAddTechStack = () => {
     if (newTechStack.trim() !== '') {
-      setFormData(prevState => ({
+      setFormData((prevState) => ({
         ...prevState,
-        techStack: [...prevState.techStack, newTechStack.trim()]
+        techStack: [...prevState.techStack, newTechStack.trim()],
       }));
       setNewTechStack('');
     }
@@ -45,9 +48,9 @@ function App() {
 
   const handleRemoveTechStack = (index) => {
     const newTechStack = formData.techStack.filter((_, i) => i !== index);
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      techStack: newTechStack
+      techStack: newTechStack,
     }));
   };
 
@@ -57,9 +60,9 @@ function App() {
 
   const handleAddVisualLink = () => {
     if (newVisualLink.trim() !== '') {
-      setFormData(prevState => ({
+      setFormData((prevState) => ({
         ...prevState,
-        visualLinks: [...prevState.visualLinks, newVisualLink.trim()]
+        visualLinks: [...prevState.visualLinks, newVisualLink.trim()],
       }));
       setNewVisualLink('');
     }
@@ -67,9 +70,9 @@ function App() {
 
   const handleRemoveLink = (index) => {
     const newVisualLinks = formData.visualLinks.filter((_, i) => i !== index);
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      visualLinks: newVisualLinks
+      visualLinks: newVisualLinks,
     }));
   };
 
@@ -86,45 +89,41 @@ function App() {
       setFormData({
         name: '',
         thumbnail: '',
-        liveProjectUrl : '',
+        liveProjectUrl: '',
         about: '',
         techStack: [],
         type: 'web',
-        visualLinks: []
-      })
+        visualLinks: [],
+      });
       setNewVisualLink('');
       setNewTechStack('');
     }
   };
 
-
   useEffect(() => {
     async function fetchProjects() {
       try {
         const querySnapshot = await getDocs(collection(db, 'projects'));
-        const projectList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const projectList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         setProjects(projectList);
-        
       } catch (e) {
         console.error('Error fetching documents: ', e);
       }
     }
 
     fetchProjects();
-    
   }, []);
-
 
   return (
     <div className='container'>
       <ToastContainer />
-          <h1>Add a New Project</h1>
+      <h1>Add a New Project</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Project Name:</label>
           <input
-            type="text"
-            name="name"
+            type='text'
+            name='name'
             value={formData.name}
             onChange={handleChange}
             required
@@ -133,8 +132,8 @@ function App() {
         <div>
           <label>Live Project URL:</label>
           <input
-            type="text"
-            name="liveProjectUrl"
+            type='text'
+            name='liveProjectUrl'
             value={formData.liveProjectUrl}
             onChange={handleChange}
           />
@@ -142,8 +141,8 @@ function App() {
         <div>
           <label>Project Thumbnail URL:</label>
           <input
-            type="text"
-            name="thumbnail"
+            type='text'
+            name='thumbnail'
             value={formData.thumbnail}
             onChange={handleChange}
             required
@@ -152,90 +151,118 @@ function App() {
         <div>
           <label>About the Project:</label>
           <textarea
-            name="about"
+            name='about'
             value={formData.about}
             onChange={handleChange}
             required
           />
         </div>
         <div>
+          <label>Type:</label>
+          <select name='type' value={formData.type} onChange={handleChange}>
+            <option value='web'>Web</option>
+            <option value='mobile'>Mobile</option>
+            <option value='ui/ux'>UI/UX</option>
+          </select>
+        </div>
+        <div>
           <label>Tech Stack:</label>
-          <div className="visual-link-input">
+          <div className='visual-link-input'>
             <input
-              type="text"
+              type='text'
               value={newTechStack}
               onChange={handleNewTechStackChange}
-              placeholder="Add tech stack"
+              placeholder='Add tech stack'
             />
             {newTechStack.trim() !== '' && (
               <button
-                type="button"
+                type='button'
                 onClick={handleAddTechStack}
-                className="add-button"
+                className='add-button'
               >
                 Add
               </button>
             )}
           </div>
           {formData.techStack.length > 0 && (
-  <ul className="tech-stack-list">
-    {formData.techStack.map((tech, index) => (
-      <li key={index} className="tech-stack-item">
-        {tech}
-        <button
-          type="button"
-          onClick={() => handleRemoveTechStack(index)}
-          className="remove-button"
-        >
-          Remove
-        </button>
-      </li>
-    ))}
-  </ul>
-)}
-
+            <>
+              <div
+                type='button'
+                onClick={() => setShowTechStack(!showTechStack)}
+                className='toggle-button'
+              >
+                {showTechStack ? <FaChevronUp /> : <FaChevronDown />}
+              </div>
+              {showTechStack && (
+                <ul className='tech-stack-list'>
+                  {formData.techStack.map((tech, index) => (
+                    <li key={index} className='tech-stack-item'>
+                      {tech}
+                      <button
+                        type='button'
+                        onClick={() => handleRemoveTechStack(index)}
+                        className='remove-button'
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </>
+          )}
         </div>
         <div>
           <label>Visual Image Links:</label>
-          <div className="visual-link-input">
+          <div className='visual-link-input'>
             <input
-              type="text"
+              type='text'
               value={newVisualLink}
               onChange={handleNewVisualLinkChange}
-              placeholder="Add visual link"
+              placeholder='Add visual link'
             />
             {newVisualLink.trim() !== '' && (
               <button
-                type="button"
+                type='button'
                 onClick={handleAddVisualLink}
-                className="add-button"
+                className='add-button'
               >
                 Add
               </button>
             )}
           </div>
           {formData.visualLinks.length > 0 && (
-  <ul className="visual-link-list">
-    {formData.visualLinks.map((link, index) => (
-      <li key={index} className="visual-link-item">
-        {link}
-        <button
-          type="button"
-          onClick={() => handleRemoveLink(index)}
-          className="remove-button"
-        >
-          Remove
-        </button>
-      </li>
-    ))}
-  </ul>
-)}
-
+            <>
+              <div
+                type='button'
+                onClick={() => setShowVisualLinks(!showVisualLinks)}
+                className='toggle-button'
+              >
+                {showVisualLinks ? <FaChevronUp /> : <FaChevronDown />}
+              </div>
+              {showVisualLinks && (
+                <ul className='visual-link-list'>
+                  {formData.visualLinks.map((link, index) => (
+                    <li key={index} className='visual-link-item'>
+                      {link}
+                      <button
+                        type='button'
+                        onClick={() => handleRemoveLink(index)}
+                        className='remove-button'
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </>
+          )}
         </div>
-        <button type="submit" >Add Project</button>
+        <button type='submit'>Add Project</button>
       </form>
     </div>
   );
 }
 
-export default App
+export default App;
